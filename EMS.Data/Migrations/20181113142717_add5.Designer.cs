@@ -11,9 +11,10 @@ using System;
 namespace EMS.Data.Migrations
 {
     [DbContext(typeof(EMSContext))]
-    partial class EMSContextModelSnapshot : ModelSnapshot
+    [Migration("20181113142717_add5")]
+    partial class add5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,8 +169,6 @@ namespace EMS.Data.Migrations
 
                     b.Property<string>("Type");
 
-                    b.Property<string>("UsersEmail");
-
                     b.HasKey("Id");
 
                     b.ToTable("PageDetails");
@@ -191,10 +190,10 @@ namespace EMS.Data.Migrations
 
             modelBuilder.Entity("EMS.Data.Models.User", b =>
                 {
-                    b.Property<string>("Email")
+                    b.Property<string>("Fname")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Fname");
+                    b.Property<string>("Email");
 
                     b.Property<string>("Lname");
 
@@ -204,7 +203,7 @@ namespace EMS.Data.Migrations
 
                     b.Property<DateTime>("StartDate");
 
-                    b.HasKey("Email");
+                    b.HasKey("Fname");
 
                     b.ToTable("Users");
                 });

@@ -11,9 +11,10 @@ using System;
 namespace EMS.Data.Migrations
 {
     [DbContext(typeof(EMSContext))]
-    partial class EMSContextModelSnapshot : ModelSnapshot
+    [Migration("20181113203518_addAuthor2")]
+    partial class addAuthor2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,9 +169,11 @@ namespace EMS.Data.Migrations
 
                     b.Property<string>("Type");
 
-                    b.Property<string>("UsersEmail");
+                    b.Property<string>("User");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("User");
 
                     b.ToTable("PageDetails");
                 });
@@ -333,6 +336,13 @@ namespace EMS.Data.Migrations
                     b.HasOne("EMS.Data.Models.PageDetail")
                         .WithMany("images")
                         .HasForeignKey("PageDetailId");
+                });
+
+            modelBuilder.Entity("EMS.Data.Models.PageDetail", b =>
+                {
+                    b.HasOne("EMS.Data.Models.User", "UserEmail")
+                        .WithMany()
+                        .HasForeignKey("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

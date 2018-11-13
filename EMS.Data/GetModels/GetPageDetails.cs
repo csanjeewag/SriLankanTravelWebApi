@@ -15,6 +15,7 @@ namespace EMS.Data.GetModels
         public string Dis1 { get; set; }
         public string Dis2 { get; set; }
         public string Dis3 { get; set; }
+        public string Author { get; set; }
         public IFormFile DefImage { get; set; }
         public List<IFormFile> Image { get; set; }
     }

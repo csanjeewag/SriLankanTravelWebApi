@@ -36,14 +36,19 @@ namespace EMS.Data
         {
             if ( page.DefImage =="" || page.DefImage == null)
             {
-                                var text = _context.PageDetails
+                 var text = _context.PageDetails
                 .Where(p => p.Id == page.Id)
                 .Select(p => p.DefImage)
                  .FirstOrDefault();
 
                 page.DefImage = text;
             }
-           
+            var author = _context.PageDetails
+               .Where(p => p.Id == page.Id)
+               .Select(p => p.UsersEmail)
+                .FirstOrDefault();
+            page.UsersEmail = author;
+
             return UpdatePage(page);
          }
 
@@ -246,6 +251,75 @@ namespace EMS.Data
 
         }
 
+        public User GetUser(string email)
+        {
+            try {
+                var text = _context.Users
+                    .Where(c => c.Email == email)
+                    .FirstOrDefault();
+                return text;
+            }
+            catch {
+                return null;
+            }
+            
+               
+        }
+        public List<User> GetUsers()
+        {
+            try
+            {
+                var text = _context.Users
+                         .ToList();
+                return text;
+            }
+            catch
+            {
+                return null;
+            }
+
+
+        }
+
+        public Boolean ToAdmin(string email)
+        {
+            try
+            {
+                User user = new User();
+                user = _context.Users
+                    .Where(c => c.Email == email)
+                    .FirstOrDefault();
+                user.Role ="admin";
+
+                _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public Boolean ToUser(string email)
+        {
+            try
+            {
+                User user = new User();
+                user = _context.Users
+                    .Where(c => c.Email == email)
+                    .FirstOrDefault();
+                user.Role = "user";
+
+                _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
     }
 }

@@ -11,9 +11,10 @@ using System;
 namespace EMS.Data.Migrations
 {
     [DbContext(typeof(EMSContext))]
-    partial class EMSContextModelSnapshot : ModelSnapshot
+    [Migration("20181113203140_addAuthor")]
+    partial class addAuthor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,7 +169,7 @@ namespace EMS.Data.Migrations
 
                     b.Property<string>("Type");
 
-                    b.Property<string>("UsersEmail");
+                    b.Property<string>("UserEmail");
 
                     b.HasKey("Id");
 

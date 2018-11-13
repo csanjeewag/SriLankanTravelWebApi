@@ -10,6 +10,7 @@ using EMS.Data.GetModels;
 using EMS.Service;
 using EMS.Data.ViewModels;
 using EMS.API.Ulities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EMS.API.Controllers
 {
@@ -25,48 +26,7 @@ namespace EMS.API.Controllers
             _service = new PageService(_context);
         }
 
-        [HttpPost("uploads")]
-        public async Task<IActionResult> Uploads(List<IFormFile> files)
-        {
-            try
-            {
-                var result = new List<PageDetail>();
-                foreach (var file in files)
-                {
-                    var path = Path.Combine(Directory.GetCurrentDirectory(),
-                     "wwwroot/Image", "2" + ".jpg");
-                    var stream = new FileStream(path, FileMode.Create);
-                    file.CopyToAsync(stream);
-                    result.Add(new PageDetail() { });
-                }
-                return Ok(result);
-            }
-            catch
-            {
-                return BadRequest();
-            }
-        }
-
-        [HttpPost("tests")]
-      //  [Produces("application/json")]
-      //  [Consumes("application/json")]
-
-        public IActionResult Test([FromBody] IFormFile f)
-        {
-            try
-            {
-               
-                return Ok();
-            }
-            catch
-            {
-                return BadRequest();
-
-
-            }
-
-        }
-
+        [Authorize]
         [HttpPost("test")]
         //  [Produces("application/json")]
         //  [Consumes("application/json")]
@@ -96,7 +56,7 @@ namespace EMS.API.Controllers
                     det.Dis2 = form.Dis2;
                     det.Dis3 = form.Dis3;
                     det.DefImage = res;
-
+                det.UsersEmail = form.Author;
                     det.IsActive = true;
                     if ((_service.AddPageDetails(det) && _service.AddImageName(result,form.Id)))
                     {
@@ -127,7 +87,7 @@ namespace EMS.API.Controllers
             }
             catch { return BadRequest(); }
         }
-
+        [Authorize]
         [HttpPost("uploadimages")]
         public IActionResult UploadImages([FromForm] ImagesUpload form)
         {
@@ -148,7 +108,7 @@ namespace EMS.API.Controllers
             }
 
         }
-
+        [Authorize]
         [HttpPost("uploadpage")]
         public IActionResult UpdatePage(GetPageDetails form)
         {
@@ -203,6 +163,7 @@ namespace EMS.API.Controllers
             catch { return BadRequest(); }
         }
 
+        [Authorize]
         [HttpGet("allgetimage/{id}")]
 
         public IActionResult AllGetImages(string id)
@@ -236,29 +197,32 @@ namespace EMS.API.Controllers
             }
             catch { return null; }
         }
+        [Authorize]
         [HttpGet("deactivepage/{id}")]
         public Boolean DeActivePage(string id)
         {
             return _service.DeActivePage(id);
         }
-
+        [Authorize]
         [HttpGet("activepage/{id}")]
         public Boolean ActivePage(string id)
         {
             return _service.ActivePage(id);
         }
+        [Authorize]
         [HttpPost("deactiveimage")]
         public Boolean DeActiveImage([FromForm] GetId form)
         {
             return _service.DeActiveImage(form.Id);
         }
 
+        [Authorize]
         [HttpPost("activeimage")]
         public Boolean ActiveImage([FromForm] GetId form)
         {
             return _service.ActiveImage(form.Id);
         }
-
+        [Authorize]
         [HttpGet("getallpages")]
         public IActionResult AllGetPages()
         {
@@ -271,14 +235,23 @@ namespace EMS.API.Controllers
 
 
         [HttpPost("login")]
-        public IActionResult Login([FromForm] User user)
+        public IActionResult Login([FromForm] User form)
         {
+            
+
             try
             {
-                var text = _service.LoginUser(user);
+                var user = GetUser(form.Email);
+                var Userrole = user.Role;
+                var Userid = user.Email;
+                var UserName = user.Fname;
+
+                GetTokenModel token = GetToken.getToken(Userrole, Userid, UserName);
+
+                var text = _service.LoginUser(form);
                 if(text == true)
                 {
-                    return Ok();
+                    return Ok(token);
                 }
                 else { return BadRequest(); }
 
@@ -292,14 +265,23 @@ namespace EMS.API.Controllers
         [HttpPost("signup")]
         public IActionResult SignUpUser([FromForm] User user)
         {
+            user.Role = "user";
+            var Userrole = user.Role;
+            var Userid = user.Email;
+            var UserName = user.Fname;
+
+            
             
 
             try
             {
+                
+
                 var text = _service.SignUpUser(user);
                 if (text == true)
                 {
-                    return Ok();
+                    GetTokenModel token = GetToken.getToken(Userrole, Userid, UserName);
+                    return Ok(token);
                 }
                 else { return BadRequest(); }
 
@@ -308,6 +290,34 @@ namespace EMS.API.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpGet("getuserdetail")]
+        public User GetUser(string email)
+        {
+            return _service.GetUser(email);
+        }
+
+        [HttpGet("getuserdetails")]
+        public IActionResult GetUsers()
+        {
+            try {
+                var text = _service.GetUsers(); return Ok(text);
+            }
+            catch { return BadRequest(); }
+            
+        }
+        [Authorize]
+        [HttpGet("touser/{email}")]
+        public Boolean ToUser(string email)
+        {
+            return _service.ToUser(email);
+        }
+        [Authorize]
+        [HttpGet("toadmin/{email}")]
+        public Boolean ToAdmin(string email)
+        {
+            return _service.ToAdmin(email);
         }
 
     }

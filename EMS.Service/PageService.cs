@@ -91,5 +91,21 @@ namespace EMS.Service
         {
             return _service.LoginUser(user);
         }
+        public User GetUser(string email)
+        {
+            return _service.GetUser(email);
+        }
+        public List<User> GetUsers()
+        {
+            return _service.GetUsers();
+        }
+        public Boolean ToUser(string email)
+        {
+            return _service.ToUser(email);
+        }
+        public Boolean ToAdmin(string email)
+        {
+            return _service.ToAdmin(email);
+        }
     }
 }
