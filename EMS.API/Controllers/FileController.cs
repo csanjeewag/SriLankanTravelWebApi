@@ -269,5 +269,46 @@ namespace EMS.API.Controllers
             
         }
 
+
+        [HttpPost("login")]
+        public IActionResult Login([FromForm] User user)
+        {
+            try
+            {
+                var text = _service.LoginUser(user);
+                if(text == true)
+                {
+                    return Ok();
+                }
+                else { return BadRequest(); }
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
+        }
+        [HttpPost("signup")]
+        public IActionResult SignUpUser([FromForm] User user)
+        {
+            
+
+            try
+            {
+                var text = _service.SignUpUser(user);
+                if (text == true)
+                {
+                    return Ok();
+                }
+                else { return BadRequest(); }
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

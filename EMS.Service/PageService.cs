@@ -81,5 +81,15 @@ namespace EMS.Service
         {
             return _service.ActiveImage(id);
         }
+
+        public Boolean SignUpUser(User user)
+        {
+            return _service.SignUpUser(user);
+        }
+
+        public Boolean LoginUser(User user)
+        {
+            return _service.LoginUser(user);
+        }
     }
 }

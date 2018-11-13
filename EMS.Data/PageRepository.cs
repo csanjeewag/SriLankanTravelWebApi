@@ -216,5 +216,36 @@ namespace EMS.Data
 
         }
 
+        public Boolean SignUpUser( User user)
+        {
+            try {
+                DateTime today = DateTime.Today;
+                user.StartDate = today;
+
+                _context.Users.Add(user);
+                _context.SaveChanges();
+                return true;
+            }
+            catch {
+                return false;
+            }
+
+        }
+        public Boolean LoginUser( User user)
+        {
+            var text = _context.Users
+                .Where(c => c.Email == user.Email)
+                .Where(c => c.Password == user.Password)
+                .Select(c => c.Email)
+                .FirstOrDefault();
+            if(text == null)
+            {
+                return false;
+            }
+            else { return true; }
+
+        }
+
+
     }
 }
