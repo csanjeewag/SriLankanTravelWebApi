@@ -8,7 +8,7 @@ using EMS.Data.ViewModels;
 
 namespace EMS.Data
 {
-  public  class PageRepository
+    public class PageRepository
     {
         private readonly EMSContext _context;
         public PageRepository(EMSContext context)
@@ -18,15 +18,18 @@ namespace EMS.Data
 
         public Boolean CreatePage(PageDetail page)
         {
-            try {
+            try
+            {
                 DateTime today = DateTime.Today;
                 page.StartDate = today;
                 page.IsActive = true;
+                page.Id = DateTime.Now.ToString("yymmssfff");
                 _context.PageDetails.Add(page);
                 _context.SaveChanges();
                 return true;
             }
-            catch {
+            catch
+            {
                 return false;
             }
 
@@ -34,12 +37,12 @@ namespace EMS.Data
 
         public Boolean UpdatePages(PageDetail page)
         {
-            if ( page.DefImage =="" || page.DefImage == null)
+            if (page.DefImage == "" || page.DefImage == null)
             {
-                 var text = _context.PageDetails
-                .Where(p => p.Id == page.Id)
-                .Select(p => p.DefImage)
-                 .FirstOrDefault();
+                var text = _context.PageDetails
+               .Where(p => p.Id == page.Id)
+               .Select(p => p.DefImage)
+                .FirstOrDefault();
 
                 page.DefImage = text;
             }
@@ -50,7 +53,7 @@ namespace EMS.Data
             page.UsersEmail = author;
 
             return UpdatePage(page);
-         }
+        }
 
         public Boolean UpdatePage(PageDetail page)
         {
@@ -73,9 +76,9 @@ namespace EMS.Data
         public Boolean AddImageName(List<string> imageNames, string id)
         {
 
-             foreach (var imageName in imageNames)
-              {
-           
+            foreach (var imageName in imageNames)
+            {
+
                 DateTime today = DateTime.Today;
                 Images image = new Images();
                 image.ImageId = imageName;
@@ -85,11 +88,11 @@ namespace EMS.Data
                 _context.Images.Add(image);
                 _context.SaveChanges();
             }
-                return true;
-            
+            return true;
+
         }
 
-      
+
 
         public PageDetail GetPage(string id)
         {
@@ -109,12 +112,12 @@ namespace EMS.Data
 
         }
 
-        public List<GetPageId> GetPages ()
+        public List<GetPageId> GetPages()
         {
             var test = _context.PageDetails
                   .Where(c => c.IsActive == true)
-                  .Select(p => new GetPageId { Id= p.Id, Topic= p.Topic })
-                 .ToList();   
+                  .Select(p => new GetPageId { Id = p.Id, Topic = p.Topic })
+                 .ToList();
             return test;
 
         }
@@ -122,7 +125,7 @@ namespace EMS.Data
         public List<AllGetPageId> AllGetPages()
         {
             var test = _context.PageDetails
-                  .Select(p => new AllGetPageId { Id = p.Id, Topic = p.Topic, ImageId =p.DefImage, IsActive = p.IsActive , StartDate = p.StartDate, Type = p.Type, SubTopic= p.SubTopic })
+                  .Select(p => new AllGetPageId { Id = p.Id, Topic = p.Topic, ImageId = p.DefImage, IsActive = p.IsActive, StartDate = p.StartDate, Type = p.Type, SubTopic = p.SubTopic, Author = p.UsersEmail })
                  .ToList();
             return test;
 
@@ -149,7 +152,7 @@ namespace EMS.Data
         {
             var test = _context.PageDetails
                   .Where(c => c.IsActive == true)
-                  .Select(p => new GetImageTopic { Id = p.Id, Topic = p.Topic , ImageId = p.DefImage, Type = p.Type, SubTopic =p.SubTopic})
+                  .Select(p => new GetImageTopic { Id = p.Id, Topic = p.Topic, ImageId = p.DefImage, Type = p.Type, SubTopic = p.SubTopic , District=p.District, Town=p.Town})
                  .ToList();
             return test;
         }
@@ -158,7 +161,7 @@ namespace EMS.Data
         {
 
             PageDetail page = new PageDetail();
-           page = this.DeGetPage(id);
+            page = this.DeGetPage(id);
             page.IsActive = false;
             if (UpdatePage(page))
             {
@@ -170,7 +173,7 @@ namespace EMS.Data
         {
             PageDetail page = new PageDetail();
             page = this.DeGetPage(id);
-            page.IsActive = true; 
+            page.IsActive = true;
             if (UpdatePage(page))
             {
                 return true;
@@ -197,7 +200,7 @@ namespace EMS.Data
             }
             catch { return false; }
 
-            
+
         }
         public Boolean ActiveImage(string id)
         {
@@ -221,105 +224,5 @@ namespace EMS.Data
 
         }
 
-        public Boolean SignUpUser( User user)
-        {
-            try {
-                DateTime today = DateTime.Today;
-                user.StartDate = today;
-
-                _context.Users.Add(user);
-                _context.SaveChanges();
-                return true;
-            }
-            catch {
-                return false;
-            }
-
-        }
-        public Boolean LoginUser( User user)
-        {
-            var text = _context.Users
-                .Where(c => c.Email == user.Email)
-                .Where(c => c.Password == user.Password)
-                .Select(c => c.Email)
-                .FirstOrDefault();
-            if(text == null)
-            {
-                return false;
-            }
-            else { return true; }
-
-        }
-
-        public User GetUser(string email)
-        {
-            try {
-                var text = _context.Users
-                    .Where(c => c.Email == email)
-                    .FirstOrDefault();
-                return text;
-            }
-            catch {
-                return null;
-            }
-            
-               
-        }
-        public List<User> GetUsers()
-        {
-            try
-            {
-                var text = _context.Users
-                         .ToList();
-                return text;
-            }
-            catch
-            {
-                return null;
-            }
-
-
-        }
-
-        public Boolean ToAdmin(string email)
-        {
-            try
-            {
-                User user = new User();
-                user = _context.Users
-                    .Where(c => c.Email == email)
-                    .FirstOrDefault();
-                user.Role ="admin";
-
-                _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _context.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public Boolean ToUser(string email)
-        {
-            try
-            {
-                User user = new User();
-                user = _context.Users
-                    .Where(c => c.Email == email)
-                    .FirstOrDefault();
-                user.Role = "user";
-
-                _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _context.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-    }
+    } 
 }

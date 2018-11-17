@@ -11,8 +11,8 @@ using System;
 namespace EMS.Data.Migrations
 {
     [DbContext(typeof(EMSContext))]
-    [Migration("20181113142717_add5")]
-    partial class add5
+    [Migration("20181116193654_add1")]
+    partial class add1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -169,6 +169,8 @@ namespace EMS.Data.Migrations
 
                     b.Property<string>("Type");
 
+                    b.Property<string>("UsersEmail");
+
                     b.HasKey("Id");
 
                     b.ToTable("PageDetails");
@@ -190,10 +192,16 @@ namespace EMS.Data.Migrations
 
             modelBuilder.Entity("EMS.Data.Models.User", b =>
                 {
-                    b.Property<string>("Fname")
+                    b.Property<string>("Email")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Email");
+                    b.Property<bool>("Active");
+
+                    b.Property<string>("Fname");
+
+                    b.Property<string>("IsActive");
+
+                    b.Property<string>("Key");
 
                     b.Property<string>("Lname");
 
@@ -203,7 +211,7 @@ namespace EMS.Data.Migrations
 
                     b.Property<DateTime>("StartDate");
 
-                    b.HasKey("Fname");
+                    b.HasKey("Email");
 
                     b.ToTable("Users");
                 });

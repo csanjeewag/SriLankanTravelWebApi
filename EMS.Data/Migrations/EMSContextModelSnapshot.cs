@@ -158,13 +158,19 @@ namespace EMS.Data.Migrations
 
                     b.Property<string>("Dis3");
 
+                    b.Property<string>("District");
+
                     b.Property<bool>("IsActive");
+
+                    b.Property<string>("Location");
 
                     b.Property<DateTime>("StartDate");
 
                     b.Property<string>("SubTopic");
 
                     b.Property<string>("Topic");
+
+                    b.Property<string>("Town");
 
                     b.Property<string>("Type");
 
@@ -194,7 +200,11 @@ namespace EMS.Data.Migrations
                     b.Property<string>("Email")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Active");
+
                     b.Property<string>("Fname");
+
+                    b.Property<string>("Key");
 
                     b.Property<string>("Lname");
 

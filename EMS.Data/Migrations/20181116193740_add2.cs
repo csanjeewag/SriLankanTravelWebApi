@@ -4,21 +4,21 @@ using System.Collections.Generic;
 
 namespace EMS.Data.Migrations
 {
-    public partial class add1 : Migration
+    public partial class add2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "DefImage",
-                table: "PageDetails",
-                nullable: true);
+            migrationBuilder.DropColumn(
+                name: "IsActive",
+                table: "Users");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "DefImage",
-                table: "PageDetails");
+            migrationBuilder.AddColumn<string>(
+                name: "IsActive",
+                table: "Users",
+                nullable: true);
         }
     }
 }

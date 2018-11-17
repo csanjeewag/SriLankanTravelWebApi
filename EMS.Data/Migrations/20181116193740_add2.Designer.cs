@@ -11,8 +11,8 @@ using System;
 namespace EMS.Data.Migrations
 {
     [DbContext(typeof(EMSContext))]
-    [Migration("20181113203140_addAuthor")]
-    partial class addAuthor
+    [Migration("20181116193740_add2")]
+    partial class add2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -169,7 +169,7 @@ namespace EMS.Data.Migrations
 
                     b.Property<string>("Type");
 
-                    b.Property<string>("UserEmail");
+                    b.Property<string>("UsersEmail");
 
                     b.HasKey("Id");
 
@@ -195,7 +195,11 @@ namespace EMS.Data.Migrations
                     b.Property<string>("Email")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Active");
+
                     b.Property<string>("Fname");
+
+                    b.Property<string>("Key");
 
                     b.Property<string>("Lname");
 

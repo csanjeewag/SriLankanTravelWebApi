@@ -13,6 +13,7 @@ namespace EMS.Data.Models
         public string Id { get; set; }
         public string Topic { get; set; }
         public string SubTopic { get; set; }
+        public string Location { get; set; }
 
         [ForeignKey("User")]
         public string UsersEmail { get; set; }
@@ -20,6 +21,8 @@ namespace EMS.Data.Models
         public string Dis1 { get; set; }
         public string Dis2 { get; set; }
         public string Dis3 { get; set; }
+        public string District { get; set; }
+        public string Town { get; set; }
         public DateTime StartDate { get; set; }
         public Boolean IsActive { get; set; }
         public string DefImage { get; set; }

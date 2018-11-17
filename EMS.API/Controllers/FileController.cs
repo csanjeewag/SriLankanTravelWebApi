@@ -56,7 +56,10 @@ namespace EMS.API.Controllers
                     det.Dis2 = form.Dis2;
                     det.Dis3 = form.Dis3;
                     det.DefImage = res;
-                det.UsersEmail = form.Author;
+                    det.UsersEmail = form.Author;
+                   det.District = form.District;
+                   det.Town = form.Town;
+                det.Location = form.location;
                     det.IsActive = true;
                     if ((_service.AddPageDetails(det) && _service.AddImageName(result,form.Id)))
                     {
@@ -133,7 +136,10 @@ namespace EMS.API.Controllers
             det.Dis2 = form.Dis2;
             det.Dis3 = form.Dis3;
             det.IsActive = true;
-            if(form.DefImage != null) { det.DefImage = res;}
+            det.District = form.District;
+            det.Town = form.Town;
+            det.Location = form.location;
+            if (form.DefImage != null) { det.DefImage = res;}
             
             
             try {
@@ -234,91 +240,6 @@ namespace EMS.API.Controllers
         }
 
 
-        [HttpPost("login")]
-        public IActionResult Login([FromForm] User form)
-        {
-            
-
-            try
-            {
-                var user = GetUser(form.Email);
-                var Userrole = user.Role;
-                var Userid = user.Email;
-                var UserName = user.Fname;
-
-                GetTokenModel token = GetToken.getToken(Userrole, Userid, UserName);
-
-                var text = _service.LoginUser(form);
-                if(text == true)
-                {
-                    return Ok(token);
-                }
-                else { return BadRequest(); }
-
-            }
-            catch
-            {
-                return BadRequest();
-            }
-            
-        }
-        [HttpPost("signup")]
-        public IActionResult SignUpUser([FromForm] User user)
-        {
-            user.Role = "user";
-            var Userrole = user.Role;
-            var Userid = user.Email;
-            var UserName = user.Fname;
-
-            
-            
-
-            try
-            {
-                
-
-                var text = _service.SignUpUser(user);
-                if (text == true)
-                {
-                    GetTokenModel token = GetToken.getToken(Userrole, Userid, UserName);
-                    return Ok(token);
-                }
-                else { return BadRequest(); }
-
-            }
-            catch
-            {
-                return BadRequest();
-            }
-        }
-
-        [HttpGet("getuserdetail")]
-        public User GetUser(string email)
-        {
-            return _service.GetUser(email);
-        }
-
-        [HttpGet("getuserdetails")]
-        public IActionResult GetUsers()
-        {
-            try {
-                var text = _service.GetUsers(); return Ok(text);
-            }
-            catch { return BadRequest(); }
-            
-        }
-        [Authorize]
-        [HttpGet("touser/{email}")]
-        public Boolean ToUser(string email)
-        {
-            return _service.ToUser(email);
-        }
-        [Authorize]
-        [HttpGet("toadmin/{email}")]
-        public Boolean ToAdmin(string email)
-        {
-            return _service.ToAdmin(email);
-        }
 
     }
 }

@@ -50,10 +50,10 @@ namespace EMS.API.Ulities
 
         public static Boolean SendloginCode(string code,string email, string name)
         {
-            string subject = "Event manement System in Creative Software!";
+            string subject = "SriLanka Travel Page.";
             string body ="<h5>Hello "+name+" ,</h5><br>"+
-                "<html><h4>You are Welcome to Event management system," +
-                 " <h2><a href=" + "http://localhost:4200/profile/register?email=" + email + "&code=" + code + "&name=" + name + " > Register link</a></h2>" +
+                "<html><h4>You are Welcome to Sri Lanka Travel Page," +
+                 " <h2><a href=" + "http://localhost:4200/user/register?email=" + email + "&code=" + code + "&name=" + name + " > Register link</a></h2>" +
                 " you should use this code <h1>" + code + "</h1>for finish registration.</h4></html>"+
                 " <img  style ="+"width:400px"+" src="+"https://images.pexels.com/photos/7097/people-coffee-tea-meeting.jpg"+">";
                 
@@ -66,10 +66,10 @@ namespace EMS.API.Ulities
 
         public static Boolean SendForgetPasswordCode(string code, string email, string name)
         {
-            string subject = "Event manement System in Creative Software!";
+            string subject = "SriLanka Travel place, Forget Password!";
             string body = "<h5>Hello " + name + " ,</h5><br>" +
                 "<html><h4>If You forget your password,</h4>" +
-                 "<h4> <h2><a href=" + "http://localhost:4200/profile/forgetpassword?email=" + email + "&code=" + code + "&name=" + name + " > new password</a></h2>" +
+                 "<h4> <h2><a href=" + "http://localhost:4200/user/forgetpassword?email=" + email + "&code=" + code + "&name=" + name + " > new password</a></h2>" +
                 " you should use this code <h1>" + code + "</h1>for get new password.</h4></html>" +
                 " <img  style =" + "width:400px" + " src=" + "https://images.pexels.com/photos/7097/people-coffee-tea-meeting.jpg" + ">";
 

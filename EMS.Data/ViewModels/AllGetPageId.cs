@@ -11,6 +11,7 @@ namespace EMS.Data.ViewModels
         public string SubTopic { get; set; }
         public string Type { get; set; }
         public string ImageId { get; set; }
+        public string Author { get; set; }
         public Boolean IsActive { get; set; }
         public DateTime StartDate { get; set; }
     }

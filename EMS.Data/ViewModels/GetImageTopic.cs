@@ -11,5 +11,7 @@ namespace EMS.Data.ViewModels
         public string SubTopic { get; set; }
         public string Type { get; set; }
         public string ImageId { get; set; }
+        public string District { get; set; }
+        public string Town { get; set; }
     }
 }

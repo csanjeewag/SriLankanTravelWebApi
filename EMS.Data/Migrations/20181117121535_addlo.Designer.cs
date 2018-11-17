@@ -11,8 +11,8 @@ using System;
 namespace EMS.Data.Migrations
 {
     [DbContext(typeof(EMSContext))]
-    [Migration("20181113203518_addAuthor2")]
-    partial class addAuthor2
+    [Migration("20181117121535_addlo")]
+    partial class addlo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -159,7 +159,11 @@ namespace EMS.Data.Migrations
 
                     b.Property<string>("Dis3");
 
+                    b.Property<string>("District");
+
                     b.Property<bool>("IsActive");
+
+                    b.Property<string>("Location");
 
                     b.Property<DateTime>("StartDate");
 
@@ -167,13 +171,13 @@ namespace EMS.Data.Migrations
 
                     b.Property<string>("Topic");
 
+                    b.Property<string>("Town");
+
                     b.Property<string>("Type");
 
-                    b.Property<string>("User");
+                    b.Property<string>("UsersEmail");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("User");
 
                     b.ToTable("PageDetails");
                 });
@@ -197,7 +201,11 @@ namespace EMS.Data.Migrations
                     b.Property<string>("Email")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Active");
+
                     b.Property<string>("Fname");
+
+                    b.Property<string>("Key");
 
                     b.Property<string>("Lname");
 
@@ -336,13 +344,6 @@ namespace EMS.Data.Migrations
                     b.HasOne("EMS.Data.Models.PageDetail")
                         .WithMany("images")
                         .HasForeignKey("PageDetailId");
-                });
-
-            modelBuilder.Entity("EMS.Data.Models.PageDetail", b =>
-                {
-                    b.HasOne("EMS.Data.Models.User", "UserEmail")
-                        .WithMany()
-                        .HasForeignKey("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

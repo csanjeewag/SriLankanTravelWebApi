@@ -27,10 +27,10 @@ D:\softawre project\WebAPI\trave\Travel\EMS.Service\bin\Debug\netcoreapp2.0\EMS.
 D:\softawre project\WebAPI\trave\Travel\EMS.Service\bin\Debug\netcoreapp2.0\EMS.Service.pdb
 D:\softawre project\WebAPI\trave\Travel\EMS.Service\bin\Debug\netcoreapp2.0\EMS.Data.dll
 D:\softawre project\WebAPI\trave\Travel\EMS.Service\bin\Debug\netcoreapp2.0\EMS.Data.pdb
-D:\softawre project\WebAPI\trave\Travel\EMS.Service\obj\Debug\netcoreapp2.0\EMS.Service.csprojResolveAssemblyReference.cache
 D:\softawre project\WebAPI\trave\Travel\EMS.Service\obj\Debug\netcoreapp2.0\EMS.Service.csproj.CoreCompileInputs.cache
 D:\softawre project\WebAPI\trave\Travel\EMS.Service\obj\Debug\netcoreapp2.0\EMS.Service.AssemblyInfoInputs.cache
 D:\softawre project\WebAPI\trave\Travel\EMS.Service\obj\Debug\netcoreapp2.0\EMS.Service.AssemblyInfo.cs
 D:\softawre project\WebAPI\trave\Travel\EMS.Service\obj\Debug\netcoreapp2.0\EMS.Service.csproj.CopyComplete
 D:\softawre project\WebAPI\trave\Travel\EMS.Service\obj\Debug\netcoreapp2.0\EMS.Service.dll
 D:\softawre project\WebAPI\trave\Travel\EMS.Service\obj\Debug\netcoreapp2.0\EMS.Service.pdb
+D:\softawre project\WebAPI\trave\Travel\EMS.Service\obj\Debug\netcoreapp2.0\EMS.Service.csprojResolveAssemblyReference.cache

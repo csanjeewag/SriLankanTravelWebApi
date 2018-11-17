@@ -10,7 +10,9 @@ namespace EMS.Data.GetModels
         public string Id { get; set; }
         public string Topic { get; set; }
         public string SubTopic { get; set; }
-
+        public string District { get; set; }
+        public string location { get; set; }
+        public string Town { get; set; }
         public string Type { get; set; }
         public string Dis1 { get; set; }
         public string Dis2 { get; set; }

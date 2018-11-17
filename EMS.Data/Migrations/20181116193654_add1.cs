@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace EMS.Data.Migrations
 {
-    public partial class addPageTable : Migration
+    public partial class add1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -65,6 +65,7 @@ namespace EMS.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
+                    DefImage = table.Column<string>(nullable: true),
                     Dis1 = table.Column<string>(nullable: true),
                     Dis2 = table.Column<string>(nullable: true),
                     Dis3 = table.Column<string>(nullable: true),
@@ -72,7 +73,8 @@ namespace EMS.Data.Migrations
                     StartDate = table.Column<DateTime>(nullable: false),
                     SubTopic = table.Column<string>(nullable: true),
                     Topic = table.Column<string>(nullable: true),
-                    Type = table.Column<string>(nullable: true)
+                    Type = table.Column<string>(nullable: true),
+                    UsersEmail = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -90,6 +92,25 @@ namespace EMS.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Positions", x => x.PositionId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Email = table.Column<string>(nullable: false),
+                    Active = table.Column<bool>(nullable: false),
+                    Fname = table.Column<string>(nullable: true),
+                    IsActive = table.Column<string>(nullable: true),
+                    Key = table.Column<string>(nullable: true),
+                    Lname = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
+                    Role = table.Column<string>(nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Email);
                 });
 
             migrationBuilder.CreateTable(
@@ -204,6 +225,7 @@ namespace EMS.Data.Migrations
                 {
                     ImageId = table.Column<string>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
+                    PageDetailId = table.Column<string>(nullable: true),
                     PageDetailsId = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false)
                 },
@@ -211,8 +233,8 @@ namespace EMS.Data.Migrations
                 {
                     table.PrimaryKey("PK_Images", x => x.ImageId);
                     table.ForeignKey(
-                        name: "FK_Images_PageDetails_PageDetailsId",
-                        column: x => x.PageDetailsId,
+                        name: "FK_Images_PageDetails_PageDetailId",
+                        column: x => x.PageDetailId,
                         principalTable: "PageDetails",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -305,9 +327,9 @@ namespace EMS.Data.Migrations
                 column: "PositionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Images_PageDetailsId",
+                name: "IX_Images_PageDetailId",
                 table: "Images",
-                column: "PageDetailsId");
+                column: "PageDetailId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -332,6 +354,9 @@ namespace EMS.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Images");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
