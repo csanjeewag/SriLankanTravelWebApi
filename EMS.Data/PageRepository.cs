@@ -96,15 +96,20 @@ namespace EMS.Data
 
         public PageDetail GetPage(string id)
         {
+
+
             var test = _context.PageDetails
                   .Where(c => c.IsActive == true)
                   .Where(c => c.Id == id)
                    .FirstOrDefault();
+            var name = _context.Users.Where(c => c.Email == test.UsersEmail).Select(c => new { fname=c.Fname , lname = c.Lname}).FirstOrDefault();
+            test.UsersEmail = name.fname+" "+ name.lname;
             return test;
 
         }
         public PageDetail DeGetPage(string id)
         {
+           
             var test = _context.PageDetails
                   .Where(c => c.Id == id)
                    .FirstOrDefault();
@@ -124,6 +129,7 @@ namespace EMS.Data
 
         public List<AllGetPageId> AllGetPages()
         {
+            
             var test = _context.PageDetails
                   .Select(p => new AllGetPageId { Id = p.Id, Topic = p.Topic, ImageId = p.DefImage, IsActive = p.IsActive, StartDate = p.StartDate, Type = p.Type, SubTopic = p.SubTopic, Author = p.UsersEmail })
                  .ToList();
