@@ -11,9 +11,10 @@ using System;
 namespace EMS.Data.Migrations
 {
     [DbContext(typeof(EMSContext))]
-    partial class EMSContextModelSnapshot : ModelSnapshot
+    [Migration("20181119140830_add15")]
+    partial class add15
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,10 +186,6 @@ namespace EMS.Data.Migrations
                 {
                     b.Property<string>("TypeId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Discription");
-
-                    b.Property<bool>("IsActive");
 
                     b.Property<string>("TypeName");
 

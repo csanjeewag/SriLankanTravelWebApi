@@ -59,9 +59,7 @@ namespace EMS.Data
         {
             try
             {
-
-
-                _context.Entry(page).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                 _context.Entry(page).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.SaveChanges();
                 return true;
             }
@@ -229,6 +227,8 @@ namespace EMS.Data
 
 
         }
+
+        
 
     } 
 }

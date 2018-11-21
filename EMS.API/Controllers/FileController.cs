@@ -205,15 +205,25 @@ namespace EMS.API.Controllers
         }
         [Authorize]
         [HttpGet("deactivepage/{id}")]
-        public Boolean DeActivePage(string id)
+        public IActionResult DeActivePage(string id)
         {
-            return _service.DeActivePage(id);
+            try
+            {
+                var test = _service.DeActivePage(id);
+                if (test) { return Ok(id); } else { return BadRequest(id); }
+            }
+            catch { return BadRequest(id); }
         }
         [Authorize]
         [HttpGet("activepage/{id}")]
-        public Boolean ActivePage(string id)
+        public IActionResult ActivePage(string id)
         {
-            return _service.ActivePage(id);
+            try
+            {
+                var test = _service.ActivePage(id);
+                if (test) { return Ok(id); } else { return BadRequest(id); }
+            }
+            catch { return BadRequest(id); }
         }
         [Authorize]
         [HttpPost("deactiveimage")]

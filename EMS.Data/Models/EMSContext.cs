@@ -18,12 +18,13 @@ namespace EMS.Data.Models
         {
 
         }
-       
+
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<PageDetail> PageDetails { get; set; }
         public DbSet<Images> Images { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<PageType> PageTypes {get;set;}
     }
 }
