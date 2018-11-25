@@ -33,22 +33,81 @@ namespace EMS.API.Controllers
             }
             
         }
-        [HttpGet("gettype")]
-        public List<PageType> GetTypes()
+        [HttpPost("updatetype")]
+        public IActionResult UpdateType(PageType type)
         {
-            return _service.GetTypes();
+            try
+            {
+
+                var test = _service.UpadateType(type);
+                if (test) { return Ok(); } else { return BadRequest(); }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
         }
-        [HttpGet("deactivetype/{id}")]
-        public Boolean DeActiveType(string id)
+        [HttpGet("gettype")]
+        public IActionResult GetType()
         {
-            return _service.DeActiveType(id);
+            try
+            {
+                var test = _service.GetTypes();
+                return Ok(test);
+            }
+            catch { return BadRequest(); }
+            
+        }
+        [HttpGet("gettypes")]
+        public IActionResult GetTypes()
+        {
+            try
+            {
+                var test = _service.GetTypes();
+               var types = test.Where(c => c.IsActive == true).ToList();
+                return Ok(types);
+            }
+            catch { return BadRequest(); }
+
+        }
+        [HttpGet("gettype/{id}")]
+        public IActionResult GetType(string id)
+        {
+            try
+            {
+                var test = _service.GetType(id);
+                return Ok(test);
+            }
+            catch { return BadRequest(); }
+           
+        }
+
+        [HttpGet("deactivetype/{id}")]
+        public IActionResult DeActiveType(string id)
+        {
+            try { var test = _service.DeActiveType(id);
+                if (test) { return Ok(test); } else { return BadRequest(test); }
+            } catch
+            {
+                return BadRequest();
+            }
+            
 
         }
         [HttpGet("activetype/{id}")]
-        public Boolean ActiveType(string id)
+        public IActionResult ActiveType(string id)
         {
-            return _service.ActiveType(id);
-
+            try
+            {
+                var test = _service.ActiveType(id);
+                if (test) { return Ok(test); } else { return BadRequest(test); }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
     }
 }

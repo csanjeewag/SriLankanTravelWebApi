@@ -203,6 +203,26 @@ namespace EMS.API.Controllers
             }
             catch { return null; }
         }
+        [HttpGet("gettopicid/{type}")]
+        public IActionResult GetImageTopics(string type)
+        {
+            try
+            {
+
+                var test = _service.GetImageTopics();
+                if (type == "" || type == null)
+                {
+                    return Ok(test);
+                }
+                else
+                {
+                    var test2 = test.Where(c => c.Type == type).ToList();
+                    return Ok(test2);
+                }
+
+            }
+            catch { return null; }
+        }
         [Authorize]
         [HttpGet("deactivepage/{id}")]
         public IActionResult DeActivePage(string id)

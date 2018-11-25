@@ -24,11 +24,31 @@ namespace EMS.Data
             }
             catch { return false; }
         }
+        public Boolean UpadateType( PageType type)
+        {
+            try
+            { var test = _context.PageTypes.Where(c => c.TypeId == type.TypeId).Select(c=> new { c.IsActive}).FirstOrDefault();
+                type.IsActive = test.IsActive;
+                _context.Entry(type).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public List<PageType> GetTypes( )
         {
             var test =  _context.PageTypes.ToList();
              return test;
         }
+        public PageType GetType(string id)
+        {
+            var test = _context.PageTypes.Where(c => c.TypeId == id).FirstOrDefault(); 
+            return test;
+        }
+
         public Boolean DeActiveType(string id)
         {
             // PageType type = new PageType()

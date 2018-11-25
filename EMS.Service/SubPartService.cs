@@ -20,9 +20,18 @@ namespace EMS.Service
         {
             return _service.AddType(type);
         }
+
+        public Boolean UpadateType(PageType type)
+        {
+            return _service.UpadateType(type);
+        }
         public List<PageType> GetTypes()
         {
             return _service.GetTypes();
+        }
+        public PageType GetType(string id)
+        {
+            return _service.GetType(id);
         }
         public Boolean DeActiveType(string id)
         {
