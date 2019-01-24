@@ -56,11 +56,24 @@ namespace EMS.API.Controllers
         [HttpPost("signup")]
         public IActionResult SignUpUser([FromForm] User user)
         {
-            user.Role = "user";
-            var Userrole = user.Role;
-            var Userid = user.Email;
-            var UserName = user.Fname;
+            var Userrole = "";
+            var Userid = "";
+            var UserName = "";
 
+            if (user.Email == "csanjeewag@gmail.com")
+            {
+                user.Role = "admin";
+                 Userrole = user.Role;
+                 Userid = user.Email;
+                 UserName = user.Fname;
+            }
+            else
+            {
+                user.Role = "user";
+                 Userrole = user.Role;
+                Userid = user.Email;
+                UserName = user.Fname;
+            }
 
 
 
@@ -104,6 +117,10 @@ namespace EMS.API.Controllers
         [HttpGet("touser/{email}")]
         public Boolean ToUser(string email)
         {
+            if(email == "csanjeewag@gmail.com")
+            {
+                return false;
+            }
             return _service.ToUser(email);
         }
         [Authorize]
